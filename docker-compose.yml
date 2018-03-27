@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  
+  joomla:
+    image: abemedia/akeeba
+    links:
+      - mysql:mysql
+    ports:
+      - 80:80
+    environment:
+      JOOMLA_BACKUP_URL: https://yourdomain.com/your_backup.jpa
+    volumes:
+      - ./app:/var/www/html
+
+  mysql:
+    image: mysql:5.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+    - mysql:db
+    ports:
+    - 8080:80
